@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <?!= include('Stylesheet.html'); ?>
+</head>
+<body>
+  <div id="background-wrapper"></div>
+    <div class="userInfoForm-container" id="main-container">
+        <div class="content-wrapper">
+            <img id="logoImage" class="logoImageIndex" src="https://sales.deerfootcarpet.com/wp-content/uploads/New-Project-1.png" alt="Descriptive Text">
+            <form id="loginForm">
+                <input type="email" class="userInfoForm-input" id="email" name="email" placeholder="Enter email">
+                <input type="password" class="userInfoForm-input" id="password" name="password" placeholder="Enter password">
+                <button type="button" class="userInfoForm-button" onclick="handleLogin()">
+                    Login
+                    <span class="spinner" style="display:none;"></span>
+                </button>
+                <button type="button" class="userInfoForm-button" onclick="handleRegister()">Go to Register</button>
+                <div class="form-checkbox-container">
+                    <label class="form-checkbox-label">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?!= include('JavaScript.html'); ?>
+</body>
+</html>
