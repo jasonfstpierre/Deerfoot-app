@@ -1,0 +1,820 @@
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block; /* Changed from flex to block */
+    font-size: 30px; /* Adjust base font size for better scaling */
+    overflow-x: hidden; /* Prevents horizontal scroll */
+}
+
+  #main-container.userInfoForm-container {
+    position: relative;
+    border-radius: 0px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1560185127-2d06c6d08d3d') no-repeat center center;
+  background-size: cover;
+  background-blend-mode: darken;
+  z-index: -1; /* Ensure it is behind all other content */
+  }
+
+  #formSelection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 5%;
+    font-family: 'Arial', sans-serif;
+    border-radius: 20px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+    width: 90%;
+    max-width: 60%;
+    min-width: 300px;
+    margin: 0 auto;
+    overflow-y: auto;
+  }
+
+  #formSelection button {
+    width: 70%;
+    padding: 30px 0;
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #073B4C;
+    border: none;
+    border-radius: 60px;
+    font-size: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
+  }
+
+  #formSelection button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+  }
+
+  #formSelection button:focus {
+    outline: none;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  }
+
+  #logoImage {
+    width: 40%;
+    max-width: 800px;
+    height: auto;
+    display: block;
+    filter: invert(100%);
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  #logoImage.logoImageIndex {
+    width: 40%;
+    max-width: 800px;
+    height: auto;
+    filter: invert(100%);
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .userInfoForm-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 40px;
+    height: 65px;
+  }
+
+  #loginForm {
+    width: 65%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+    #loginForm.register {
+    width: 65%;
+    padding-bottom: 68px;
+  }
+
+
+  .userInfoForm-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #3D597A; /* Adjust the color to match your theme */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.2s ease; /* Smooth transition for visual effects */
+  }
+
+  .userInfoForm-button:active {
+    background-color: #222; /* Darker shade when the button is pressed */
+    transform: translateY(2px); /* Move the button down to simulate a press */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Optional: add shadow to enhance the effect */
+  }
+
+  .userInfoForm-button:hover {
+    background-color: #243D47; /* Darker shade on hover */
+  }
+
+  /*.userInfoForm-container {
+    position: relative;
+    border-radius: 0px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%; /* Adjust height as needed 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }*/
+
+  .selectionScreen-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+  .content-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1000px; /* Adjust as needed */
+    margin: 0 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-checkbox-label {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: #2c3e50; /* Dark grey-blue color */
+    font-size: 0.5rem;
+  }
+
+  .spinner {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .hazard-form-container {
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 100%;
+  }
+
+  form {
+    width: calc(100%); /* Takes full width minus padding on mobile */
+    max-width: 100%; /* Maximum width of form on larger screens */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 15px auto; /* Centers the form */
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #2c3e50; /* Dark grey-blue color */
+    font-size: 1rem; 
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #aebccc; /* Light blue border */
+    border-radius: 4px;
+    font-size: 1rem; /* Responsive font size */
+    box-sizing: border-box;
+  }
+
+  textarea {
+    width: 100%; /* Use 100% width to fill the container */
+    height: auto; /* Set a fixed height or use 'rows' to determine height */
+    padding: 15px; /* Add some padding inside the textarea */
+    border: 1px solid #ccc; /* A subtle border color */
+    border-radius: 5px; /* Rounded corners */
+    font-family: Arial, sans-serif; /* A font family that improves readability */
+    font-size: 1em; /* A reasonable font size for text input */
+    margin-bottom: 15px; /* Spacing above the textarea */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* A subtle inner shadow to create depth */
+    resize: vertical; /* Allow only vertical resizing */
+    line-height: normal; /* Resets line height to default */
+    vertical-align: top; /* Ensures the text aligns to the top */
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    background-color: #3490dc; /* Modern blue color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  input [type="submit"]:hover {
+    background-color: #2779bd; /* Darker blue on hover */
+  }
+
+  input#ReceiveSubmitButton[type="submit"] {
+    background-color: #FFBA00; /* Modern blue color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  input#ReceiveSubmitButton[type="submit"]:hover {
+    background-color: #FFA700; /* Darker blue on hover */
+  }
+
+  /* Logo and title styles */
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px; /* Adds bottom margin to the logo container */
+  }
+
+  #companyLogo {
+    max-width: 100%; /* Ensures the image is responsive */
+    height: auto; /* Maintains aspect ratio */
+  }
+
+  #logincompanylogo.login-logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+    text-align: center
+  }
+
+  #logincompanylogo {
+    width: 100%; 
+    height: auto; 
+    text-align: center
+  }
+
+  .form-title {
+    text-align: center;
+    color: #2c3e50; /* Dark grey-blue color */
+    font-size: 1.2em; /* Large font size for form title */
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  // Checklist styles
+  fieldset {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom:35px;
+  }
+
+  legend {
+    padding: 0 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #2c3e50;
+    padding-bottom: 20px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .checkbox-row-signel {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .checkbox-group {
+    margin-bottom: 20px; /* Adjust the space between groups */
+    padding-bottom: 20px;
+  }
+
+  .checkbox-group > label:first-child {
+    font-weight: bold; /* Make the main label bold */
+  }
+
+  .checkbox-label {
+    display: block; /* Stack the checkbox labels vertically */
+    margin-left: 20px; /* Indent checkboxes for better hierarchy visibility */
+  }
+
+  /* Style for Load Details button */
+  #loadCustomerDetailsBtn {
+    background-color: #007BFF;  /* Standard Bootstrap blue */
+    border: none; /* No borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Some padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline block element */
+    font-size: 30px; /* Larger font size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+  #loadCustomerDetailsBtn:hover {
+    background-color: #0056b3;  /* A darker blue for hover state */
+  }
+
+/* Style for Details Display Area */
+
+  .customerSearched {
+      padding: 8px 15px;
+      margin: 5px 0;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+
+  .customerSearched:hover {
+      background-color: #e0e0e0; /* Slightly darker on hover */
+  }
+
+  .customerSearched:active {
+      background-color: #d0d0d0; /* Mimic a button press effect */
+  }
+
+  .customerSearched:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #0056b3; /* Blue glow for focus */
+  }
+
+  #selectedItemsContainer {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 4px;
+    margin-bottom: 35px
+  }
+
+/* Style for individual detail items */
+  .detail-item {
+    margin-bottom: 5px;
+    line-height: 1.6; /* More readable line spacing */
+    font-size: 14px;
+  }
+
+/* If you're using divs for each detail */
+  .detail-item label {
+    font-weight: bold;
+  }
+
+//suggestions box styling
+
+#details, #searchResults, #selectedItemsContainer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#details {
+    margin-bottom: 20px
+}
+
+/* Styling for search results under the search field */
+#suggestions {
+    position: absolute;
+    padding-left: 8px
+    background: white;
+    display: none;
+    overflow-y: auto; /* Allows scrolling */
+    width: 70%; /* This will match the width to the parent element if correctly positioned */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+    border: 1px solid #ccc; /* Optional: adds border */
+}
+
+#itemInput {
+    width: 100%; /* Ensure the input field is full-width within its parent container */
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Styling for items in the selected items container */
+.selected-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.selected-item button {
+    padding: 6px 12px;  /* Increase padding to make the button larger */
+    font-size: 20px;  /* Increase font size */
+    color: #fff;
+    background-color: #007BFF;  /* Standard Bootstrap blue */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.selected-item button:hover {
+    background-color: #0056b3;  /* A darker blue for hover state */
+}
+
+//End suggestions box styling
+
+#itemsStillOut {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+#itemsStillOut {
+  display: none;
+}
+
+#details {
+  display: none;
+}
+
+.itemBeingReturned {
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#itemsStillOut div {
+  margin-bottom: 5px; /* Space between items */
+}
+
+.customer-details-title, h5 {
+    font-size: 1em; /* Make all titles uniform in size */
+    font-weight: bold;
+    margin-bottom: 4px; /* Reduce space below the title */
+    color: #333; /* Optional: Change the color for better visibility or design match */
+}
+
+.details-content {
+    padding-left: 20px; /* Indent the content slightly for a better visual hierarchy */
+}
+
+.item-entry {
+    background-color: #f9f9f9; /* Very light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    padding: 8px; /* Padding inside each item */
+    margin-bottom: 5px; /* Space between items */
+    display: flex;
+    justify-content: space-between; /* Positions the label and button on opposite ends */
+    align-items: center; /* Aligns items vertically in the center */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.item-entry:hover {
+    background-color: #e9e9e9; /* Slightly darker on hover */
+}
+
+.toggle-item-btn {
+    padding: 6px 12px;  /* Increase padding to make the button larger */
+    font-size: 20px;  /* Increase font size */
+    color: #fff;
+    background-color: #007BFF;  /* Standard Bootstrap blue */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-style:hover {
+    background-color: #ddd; /* Darker grey background on hover */
+}
+
+
+#customerInfo h5, #itemSection h5, #notesSection h5 {
+    margin-bottom: 0; /* Reduce space below the heading */
+    font-weight: bold;
+}
+
+#itemSection, #notesSection {
+    padding-top: 30px
+}
+
+#details div {
+    margin-bottom: 5px; /* Reduce space between items */
+}
+
+
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  /* custom alert modal*/
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+
+  /* Add Animation */
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
+
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  /* end custom alert modal*/
+
+  /* Status message styles */
+  .status-container {
+    display: none;
+    position: absolute;
+    top: 25%; /* This positions the top of the box at 1/4 down from the top*/
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: 90%;
+    max-width: 600px;
+    box-sizing: border-box;
+    padding: 50px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-left: 10px solid #4285F4;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .retry-button {
+    padding: 10px 15px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #EA4335; /* Google's error red */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+  }
+
+  .retry-button:hover {
+    background-color: #D93025; /* A darker shade for hover state */
+  }
+
+  .status-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #202124;
+    margin-bottom: 10px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .status-body {
+    font-size: 24px;
+    color: #5f6368;
+  }
+
+  /* This class is added when the form is submitted successfully */
+  .status-success {
+    border-left-color: #34A853;
+  }
+
+  /* This class is added if the form submission fails */
+  .status-error {
+    border-left-color: #EA4335;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.8); /* Adjust the scaling factor as needed */
+    cursor: pointer;
+    margin: 10px; /* Adds some space around the checkbox to accommodate the shadow */
+    transition: box-shadow 0.3s; /* Smooth transition for the shadow effect */
+  }
+
+  input[type="checkbox"]:hover {
+    box-shadow: 0 0 8px #4169e1; /* Light blue glow */
+  }
+
+@media (max-width: 1024px) {
+    .checkbox-group {
+        flex-basis: 100%; /* Each hazard takes the full width */
+        margin-bottom: 15px; /* Adjust as needed */
+    }
+
+    form {
+        width: 90%; /* Use more of the screen width on smaller devices */
+    }
+
+    .form-title {
+        font-size: 1.25em; /* Smaller font size for the title on smaller screens */
+    }
+
+
+    #loginForm {
+    padding: 40px;
+    padding-top: 60px;
+    border-radius: 60px;
+    }
+
+    .userInfoForm-input {
+    padding: 20px;
+    border-radius: 30px;
+    }
+
+    .userInfoForm-button {
+    height: 10vh;
+    padding: 10px;
+    margin-top: 70px;
+    border-radius: 90px;
+    font-size: 40px;
+    }
+
+    #formSelection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 70px 5%; /* Responsive padding */
+        font-family: 'Arial', sans-serif;
+        border-radius: 0px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 100%;
+        min-width: 300px;
+        margin: 0 auto;
+        overflow-y: auto;
+    }
+
+    #formSelection button {
+        width: 100%;
+        padding: 50px 0;
+        margin-bottom: 70px;
+        background-color: rgba(255, 255, 255, 0.75);
+        color: #073B4C;
+        border: none;
+        border-radius: 60px;
+        font-size: 42px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out, background-color 0.3s;
+    }
+
+    #formSelection button:hover {
+        background-color: rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+    }
+
+    #formSelection button:focus {
+        outline: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    }
+
+    #logoImage {
+        filter: invert(100%);
+        width: 60%;
+        max-width: 800px;
+        height: auto;
+        margin-bottom: 90px;
+        margin-top: 50px;
+        display: block;
+    }
+
+    #logoImage.logoImageIndex {
+    width: 60%;
+    max-width: 800px;
+    height: auto;
+    filter: invert(100%);
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  input[type="submit"] {
+    font-size: 1rem; /* Responsive font size */
+  }
+
+  textarea {
+    font-size: 1em; /* A reasonable font size for text input */
+  }
+
+  .form-checkbox-label {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: #2c3e50; /* Dark grey-blue color */
+    font-size: 1em;
+  }
+}
+
+/* Adjustments for larger screens */
+@media (min-width: 768px) {
+    .checkbox-group {
+        flex-basis: calc(50% - 10px);
+    }
+
+    body, html {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    .form-title {
+        font-size: 1.5em;
+    }
+}
+</style>
