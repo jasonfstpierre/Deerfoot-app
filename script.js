@@ -1,6 +1,3 @@
-<script>
-  //client side
-
 function handleLogin() {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
@@ -754,5 +751,3 @@ function updateVisibility() {
         itemsStillOutDiv.style.display = 'block';
     }
 }
-
-</script>
